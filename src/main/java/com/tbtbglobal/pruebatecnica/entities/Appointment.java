@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDate;
+
 
 @Getter
 @Setter
@@ -22,7 +23,7 @@ public class Appointment {
     private Integer appointmentId;
 
     @Column(name = "appointment_date")
-    private Date appointmentDate;
+    private LocalDate appointmentDate;
 
     @Column(name = "appointment_time")
     private Time appointmentTime;

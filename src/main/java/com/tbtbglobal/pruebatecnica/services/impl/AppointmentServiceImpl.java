@@ -27,14 +27,18 @@ public class AppointmentServiceImpl implements IAppointmentService {
 
     @Override
     public AppointmentResponseDTO createAppointment(AppointmentRequestDTO appointmentRequestDTO) {
-        return null;
+
+         Appointment appointment = modelMapper.map(appointmentRequestDTO, Appointment.class);
+
+         Appointment appointmentSave = appointmentRepository.save(appointment);
+         return  modelMapper.map(appointmentSave, AppointmentResponseDTO.class);
     }
 
     @Override
     public List<AppointmentResponseDTO> getAllAppointments() {
         List<Appointment> appointments = appointmentRepository.findAll();
         return appointments.stream()
-                .map(note -> modelMapper.map(note, AppointmentResponseDTO.class))
+                .map(appointment -> modelMapper.map(appointment, AppointmentResponseDTO.class))
                 .toList();
 
     }
