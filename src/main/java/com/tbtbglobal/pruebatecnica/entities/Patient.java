@@ -9,17 +9,11 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "patients")
-public class Patient {
-    @Id
-    @Column(name = "patient_id")
-    private Integer patientId;
-
-
-    @JoinColumn(name = "user_id")
-    private User user;
+@PrimaryKeyJoinColumn(name = "patient_id")
+public class Patient extends User{
 
     @Column(name = "diagnosis")
     private String diagnosis;
 
-    // Getters and setters
+    // Other attributes of Patient
 }

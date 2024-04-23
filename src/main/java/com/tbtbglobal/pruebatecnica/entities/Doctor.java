@@ -9,15 +9,12 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "doctors")
-public class Doctor {
-    @Id
-    @Column(name = "doctor_id")
-    private Integer doctorId;
-
-    @JoinColumn(name = "user_id")
-    private User user;
+@PrimaryKeyJoinColumn(name = "doctor_id")
+public class Doctor extends User {
 
     @ManyToOne
     @JoinColumn(name = "specialty_id")
     private Specialty specialty;
+
+    // Other attributes of  Doctor
 }
