@@ -6,6 +6,7 @@ import com.tbtbglobal.pruebatecnica.entities.Appointment;
 import com.tbtbglobal.pruebatecnica.repository.IAppointmentRepository;
 import com.tbtbglobal.pruebatecnica.services.interfaces.IAppointmentService;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class AppointmentServiceImpl implements IAppointmentService {
     private final IAppointmentRepository appointmentRepository;
 
 
+    @Autowired
     private final ModelMapper modelMapper;
 
     public AppointmentServiceImpl(IAppointmentRepository appointmentRepository, ModelMapper modelMapper) {
