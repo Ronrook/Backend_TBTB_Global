@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -50,5 +51,7 @@ public class Medication {
     @Column(name = "expiry_date")
     private Date expiryDate;
 
-    // Getters and setters
+    @ManyToMany(mappedBy = "medications")
+    private List<Patient> patients;
+
 }

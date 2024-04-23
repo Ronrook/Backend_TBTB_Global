@@ -21,6 +21,4 @@ public class Specialty {
 
     @Column(name = "specialty_name")
     private String specialtyName;
-
-    // Getters and setters
 }
