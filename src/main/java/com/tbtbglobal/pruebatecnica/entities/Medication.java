@@ -1,20 +1,24 @@
 package com.tbtbglobal.pruebatecnica.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "medications")
 public class Medication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "medication_id")
-    private int medicationId;
+    private Integer medicationId;
 
     @Column(name = "medication_name")
     private String medicationName;

@@ -1,7 +1,9 @@
 package com.tbtbglobal.pruebatecnica.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Time;
@@ -9,13 +11,15 @@ import java.util.Date;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "appointments")
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "appointment_id")
-    private int appointmentId;
+    private Integer appointmentId;
 
     @Column(name = "appointment_date")
     private Date appointmentDate;
