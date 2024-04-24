@@ -8,7 +8,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.List;
 
@@ -29,5 +28,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorDto> methodArgumentTypeMismatchException(Exception e){
         ErrorDto errorDto = new ErrorDto(400,"La hora de la cita no debe estar vacia");
         return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ErrorDto> NotFoundException(Exception e){
+        ErrorDto errorDto = new ErrorDto(404, e.getMessage());
+        return new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
     }
 }

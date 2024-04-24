@@ -26,10 +26,10 @@ public class AppointmentRequestDTO {
     private Time appointmentTime;
 
     @NotNull(message = "El id del paciente no puede ser nulo.")
-    private  String patientId;
+    private  Integer patientId;
 
     @NotNull(message = "El id del doctor no puede ser nulo.")
-    private  String doctorId;
+    private  Integer doctorId;
 
     private boolean isAttended;
 }

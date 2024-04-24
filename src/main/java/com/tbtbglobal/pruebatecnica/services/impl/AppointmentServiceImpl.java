@@ -5,6 +5,8 @@ import com.tbtbglobal.pruebatecnica.dtos.AppointmentResponseDTO;
 import com.tbtbglobal.pruebatecnica.entities.Appointment;
 import com.tbtbglobal.pruebatecnica.repository.IAppointmentRepository;
 import com.tbtbglobal.pruebatecnica.services.interfaces.IAppointmentService;
+import com.tbtbglobal.pruebatecnica.services.interfaces.IDoctorService;
+import com.tbtbglobal.pruebatecnica.services.interfaces.IPatientService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,22 +15,32 @@ import java.util.List;
 
 @Service
 public class AppointmentServiceImpl implements IAppointmentService {
+
     private final IAppointmentRepository appointmentRepository;
 
+     private final IDoctorService doctorService;
 
+     private final IPatientService patientService;
     @Autowired
     private final ModelMapper modelMapper;
 
-    public AppointmentServiceImpl(IAppointmentRepository appointmentRepository, ModelMapper modelMapper) {
+    public AppointmentServiceImpl(IAppointmentRepository appointmentRepository, IDoctorService doctorService, IPatientService patientService, ModelMapper modelMapper) {
         this.appointmentRepository = appointmentRepository;
+        this.doctorService = doctorService;
+        this.patientService = patientService;
         this.modelMapper = modelMapper;
     }
 
 
     @Override
-    public AppointmentResponseDTO createAppointment(AppointmentRequestDTO appointmentRequestDTO) {
+    public AppointmentResponseDTO createAppointment(AppointmentRequestDTO request) {
 
-         Appointment appointment = modelMapper.map(appointmentRequestDTO, Appointment.class);
+
+        // entity validations
+        doctorService.getDoctorById(request.getDoctorId());
+        patientService.getPatientById(request.getPatientId());
+
+         Appointment appointment = modelMapper.map(request, Appointment.class);
 
          Appointment appointmentSave = appointmentRepository.save(appointment);
          return  modelMapper.map(appointmentSave, AppointmentResponseDTO.class);
