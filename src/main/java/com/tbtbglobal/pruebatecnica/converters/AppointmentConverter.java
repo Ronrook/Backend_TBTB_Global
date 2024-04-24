@@ -9,6 +9,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
+import java.util.List;
+
 
 @Component
 public class AppointmentConverter {
@@ -33,5 +36,10 @@ public class AppointmentConverter {
         appointment.setDoctor(doctorService.getDoctorById(dto.getDoctorId()));
         appointment.setPatient(patientService.getPatientById(dto.getPatientId()));
         return appointment;
+    }
+
+    public List<AppointmentResponseDTO> fromEntity(List<Appointment> appointmentsList){
+        if( appointmentsList == null) return Collections.emptyList();
+        return appointmentsList.stream().map(this::fromEntity).toList();
     }
 }

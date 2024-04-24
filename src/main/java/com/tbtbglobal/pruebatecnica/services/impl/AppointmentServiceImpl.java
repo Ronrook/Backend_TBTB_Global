@@ -17,13 +17,10 @@ import java.util.List;
 public class AppointmentServiceImpl implements IAppointmentService {
     private final IAppointmentRepository appointmentRepository;
     private final AppointmentConverter appointmentConverter;
-    @Autowired
-    private final ModelMapper modelMapper;
 
-    public AppointmentServiceImpl(IAppointmentRepository appointmentRepository, AppointmentConverter appointmentConverter, ModelMapper modelMapper) {
+    public AppointmentServiceImpl(IAppointmentRepository appointmentRepository, AppointmentConverter appointmentConverter) {
         this.appointmentRepository = appointmentRepository;
         this.appointmentConverter = appointmentConverter;
-        this.modelMapper = modelMapper;
     }
 
 
@@ -37,9 +34,7 @@ public class AppointmentServiceImpl implements IAppointmentService {
     @Override
     public List<AppointmentResponseDTO> getAllAppointments() {
         List<Appointment> appointments = appointmentRepository.findAll();
-        return appointments.stream()
-                .map(appointment -> modelMapper.map(appointment, AppointmentResponseDTO.class))
-                .toList();
+        return appointmentConverter.fromEntity(appointments);
 
     }
 
