@@ -28,7 +28,7 @@ de diversas transacciones (Insert, Select, Update, Delete)
 - MySQL
 - MySQL Workbench
 ### Entregables
-- En la carpeta **Scripts** encontrarás los scripts utilizados para crear y poblar la base de datos MySQL. Los archivos **ScriptDDL** contienen las instrucciones para la creación de las tablas, mientras que en **ScriptDML** encontrarás el llenado de las tablas y las consultas correspondientes. El modelo entidad-relación está disponible en el archivo **MER**.
+- En la carpeta **Scripts** encontrarás los scripts utilizados para crear y poblar la base de datos MySQL. Los archivos **ScriptDDL** contienen las instrucciones para la creación de las tablas, mientras que en **ScriptDML** encontrarás el llenado de las tablas y las consultas correspondientes. El modelo entidad-relación está disponible en el archivo **DER-CLINICAL_RECORD**.
 
 
 ## Parte 2: Interfaz de Programación de Aplicaciones (API)
