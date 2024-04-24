@@ -1,8 +1,10 @@
 package com.tbtbglobal.pruebatecnica.services.impl;
 
+import com.tbtbglobal.pruebatecnica.converters.AppointmentConverter;
 import com.tbtbglobal.pruebatecnica.dtos.AppointmentRequestDTO;
 import com.tbtbglobal.pruebatecnica.dtos.AppointmentResponseDTO;
 import com.tbtbglobal.pruebatecnica.entities.Appointment;
+import com.tbtbglobal.pruebatecnica.exceptions.ResourceNotFoundException;
 import com.tbtbglobal.pruebatecnica.repository.IAppointmentRepository;
 import com.tbtbglobal.pruebatecnica.services.interfaces.IAppointmentService;
 import com.tbtbglobal.pruebatecnica.services.interfaces.IDoctorService;
@@ -21,13 +23,16 @@ public class AppointmentServiceImpl implements IAppointmentService {
      private final IDoctorService doctorService;
 
      private final IPatientService patientService;
+
+    private final AppointmentConverter appointmentConverter;
     @Autowired
     private final ModelMapper modelMapper;
 
-    public AppointmentServiceImpl(IAppointmentRepository appointmentRepository, IDoctorService doctorService, IPatientService patientService, ModelMapper modelMapper) {
+    public AppointmentServiceImpl(IAppointmentRepository appointmentRepository, IDoctorService doctorService, IPatientService patientService, AppointmentConverter appointmentConverter, ModelMapper modelMapper) {
         this.appointmentRepository = appointmentRepository;
         this.doctorService = doctorService;
         this.patientService = patientService;
+        this.appointmentConverter = appointmentConverter;
         this.modelMapper = modelMapper;
     }
 
@@ -57,7 +62,9 @@ public class AppointmentServiceImpl implements IAppointmentService {
 
     @Override
     public AppointmentResponseDTO getAppointmentById(Integer appointmentId) {
-        return null;
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Cita no encontrada."));
+        return appointmentConverter.fromEntity(appointment);
     }
 
     @Override
