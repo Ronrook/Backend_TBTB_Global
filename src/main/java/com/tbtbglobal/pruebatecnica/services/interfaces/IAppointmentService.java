@@ -15,10 +15,6 @@ public interface IAppointmentService {
 
     AppointmentResponseDTO updateAppointment(Integer appointmentId, AppointmentRequestDTO updatedAppointment);
 
-    void deleteAppointment(Integer appointmentId);
-
-    List<AppointmentResponseDTO> getAppointmentsByDoctorId(Integer employeeId);
-
-    List<AppointmentResponseDTO> getAppointmentsByPatientId(Integer customerId);
+    String deleteAppointment(Integer appointmentId);
 
 }

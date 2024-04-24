@@ -64,17 +64,14 @@ public class AppointmentServiceImpl implements IAppointmentService {
     }
 
     @Override
-    public void deleteAppointment(Integer appointmentId) {
+    public String deleteAppointment(Integer appointmentId) {
+        if (!appointmentRepository.existsById(appointmentId)) {
+            throw new ResourceNotFoundException("Cita con id " + appointmentId + "no existe");
+        }
+        appointmentRepository.deleteById(appointmentId);
+
+        return "Cita eliminada con exito!";
 
     }
 
-    @Override
-    public List<AppointmentResponseDTO> getAppointmentsByDoctorId(Integer employeeId) {
-        return null;
-    }
-
-    @Override
-    public List<AppointmentResponseDTO> getAppointmentsByPatientId(Integer customerId) {
-        return null;
-    }
 }

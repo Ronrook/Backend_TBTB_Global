@@ -34,7 +34,13 @@ public class AppointmentController {
         return new ResponseEntity<>(appointmentService.getAppointmentById(appointmentId), HttpStatus.OK);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<AppointmentResponseDTO> updateAppointment(@PathVariable("id") Integer appointmentId,                                            @Valid @RequestBody AppointmentRequestDTO appointmentRequestDTO){
+    public ResponseEntity<AppointmentResponseDTO> updateAppointment(@PathVariable("id") Integer appointmentId,
+                                                @Valid @RequestBody AppointmentRequestDTO appointmentRequestDTO){
         return new ResponseEntity<>(appointmentService.updateAppointment(appointmentId, appointmentRequestDTO), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteAppointment(@PathVariable("id") Integer appointmentId) {
+        return new ResponseEntity<>(appointmentService.deleteAppointment(appointmentId), HttpStatus.OK);
     }
 }
