@@ -51,8 +51,16 @@ public class AppointmentServiceImpl implements IAppointmentService {
     }
 
     @Override
-    public AppointmentResponseDTO updateAppointment(Integer appointmentId, AppointmentRequestDTO updatedAppointment) {
-        return null;
+    public AppointmentResponseDTO updateAppointment(Integer appointmentId, AppointmentRequestDTO appointmentDTO) {
+        // validar si existe cita a actualizar
+        if (!appointmentRepository.existsById(appointmentId)) {
+            throw new ResourceNotFoundException("Cita con id " + appointmentId + " no existe");
+        }
+
+        Appointment updatedAppointment = appointmentConverter.fromDto(appointmentDTO);
+        updatedAppointment.setAppointmentId(appointmentId);
+        appointmentRepository.save(updatedAppointment);
+        return appointmentConverter.fromEntity(updatedAppointment);
     }
 
     @Override
