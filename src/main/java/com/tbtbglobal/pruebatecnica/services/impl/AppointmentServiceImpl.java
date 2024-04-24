@@ -7,8 +7,6 @@ import com.tbtbglobal.pruebatecnica.entities.Appointment;
 import com.tbtbglobal.pruebatecnica.exceptions.ResourceNotFoundException;
 import com.tbtbglobal.pruebatecnica.repository.IAppointmentRepository;
 import com.tbtbglobal.pruebatecnica.services.interfaces.IAppointmentService;
-import com.tbtbglobal.pruebatecnica.services.interfaces.IDoctorService;
-import com.tbtbglobal.pruebatecnica.services.interfaces.IPatientService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,21 +15,13 @@ import java.util.List;
 
 @Service
 public class AppointmentServiceImpl implements IAppointmentService {
-
     private final IAppointmentRepository appointmentRepository;
-
-     private final IDoctorService doctorService;
-
-     private final IPatientService patientService;
-
     private final AppointmentConverter appointmentConverter;
     @Autowired
     private final ModelMapper modelMapper;
 
-    public AppointmentServiceImpl(IAppointmentRepository appointmentRepository, IDoctorService doctorService, IPatientService patientService, AppointmentConverter appointmentConverter, ModelMapper modelMapper) {
+    public AppointmentServiceImpl(IAppointmentRepository appointmentRepository, AppointmentConverter appointmentConverter, ModelMapper modelMapper) {
         this.appointmentRepository = appointmentRepository;
-        this.doctorService = doctorService;
-        this.patientService = patientService;
         this.appointmentConverter = appointmentConverter;
         this.modelMapper = modelMapper;
     }
@@ -39,16 +29,9 @@ public class AppointmentServiceImpl implements IAppointmentService {
 
     @Override
     public AppointmentResponseDTO createAppointment(AppointmentRequestDTO request) {
-
-
-        // entity validations
-        doctorService.getDoctorById(request.getDoctorId());
-        patientService.getPatientById(request.getPatientId());
-
-         Appointment appointment = modelMapper.map(request, Appointment.class);
-
-         Appointment appointmentSave = appointmentRepository.save(appointment);
-         return  modelMapper.map(appointmentSave, AppointmentResponseDTO.class);
+        Appointment appointment =  appointmentConverter.fromDto(request);
+        appointmentRepository.save(appointment);
+        return appointmentConverter.fromEntity(appointment);
     }
 
     @Override
