@@ -3,10 +3,9 @@ package com.tbtbglobal.pruebatecnica.controller;
 import com.tbtbglobal.pruebatecnica.dtos.AppointmentRequestDTO;
 import com.tbtbglobal.pruebatecnica.dtos.AppointmentResponseDTO;
 import com.tbtbglobal.pruebatecnica.services.interfaces.IAppointmentService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
-import java.util.List;
 
 
 @RestController
@@ -20,12 +19,12 @@ public class AppointmentController {
     }
 
     @PostMapping()
-    public AppointmentResponseDTO createAppointment( @RequestBody AppointmentRequestDTO request) {
-        return appointmentService.createAppointment(request);
+    public ResponseEntity<AppointmentResponseDTO> createAppointment(@RequestBody AppointmentRequestDTO request) {
+        return new ResponseEntity<>(appointmentService.createAppointment(request), HttpStatus.OK);
     }
 
     @GetMapping()
-    public List<AppointmentResponseDTO> getAppointments() {
-        return appointmentService.getAllAppointments();
+    public ResponseEntity<AppointmentResponseDTO> getAppointments() {
+        return new ResponseEntity(appointmentService.getAllAppointments(),HttpStatus.OK);
     }
 }
